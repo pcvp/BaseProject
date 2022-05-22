@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BaseApp.Controls"
+             xmlns:Converters="clr-namespace:BaseApp.Converters" xmlns:vm="clr-namespace:BaseApp.ViewModels.RecuperarSenha"
+             NavigationPage.HasNavigationBar="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}"
+             x:Class="BaseApp.Views.RecuperarSenha.RecuperarSenhaPage"
+             Title="Recuperar senha">
+    <ContentPage.BindingContext>
+        <vm:RecuperarSenhaViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Start" Margin="{StaticResource AppMargin}"  >
+
+
+            <StackLayout IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}" Margin="0, 35">
+                <controls:InputControl NomeDoCampo="Seu email:" Valor="{Binding Login}" MensagemDeErro="{Binding ValidacaoLogin, Mode=TwoWay}"/>
+            </StackLayout>
+
+            <StackLayout Spacing="30" IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+                <Button
+                    Text="Enviar senha"
+                    Style="{StaticResource RaisedPrimary}"
+                    Command="{Binding RecuperarSenhaCommand}"
+                    />
+
+
+            </StackLayout>
+
+            <controls:MostrarLoadingControl IsVisible="{Binding MostrarLoading}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

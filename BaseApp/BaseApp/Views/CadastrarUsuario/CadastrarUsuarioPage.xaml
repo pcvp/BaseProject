@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:BaseApp.Controls" xmlns:vm="clr-namespace:BaseApp.ViewModels.CadastrarUsuario" xmlns:Converters="clr-namespace:BaseApp.Converters"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="True"
+             x:Class="BaseApp.Views.CadastrarUsuario.CadastrarUsuarioPage">
+    <ContentPage.BindingContext>
+        <vm:CadastrarUsuarioViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+
+        <FlexLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="{StaticResource AppMargin}" JustifyContent="SpaceBetween" Direction="Column">
+
+            <ScrollView IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+                <StackLayout Spacing="30">
+                    <controls:InputControl NomeDoCampo="Nome:" Valor="{Binding Nome}" MensagemDeErro="{Binding ValidacaoNome, Mode=TwoWay}"/>
+                    <controls:InputControl NomeDoCampo="Email:" Valor="{Binding Email}" MensagemDeErro="{Binding ValidacaoEmail, Mode=TwoWay}"/>
+                    <controls:InputControl NomeDoCampo="Senha:" EhSenha="True" Valor="{Binding Senha}" MensagemDeErro="{Binding ValidacaoSenha, Mode=TwoWay}"/>
+                    <controls:InputControl NomeDoCampo="Telefone:" Keyboard="Telephone" Valor="{Binding Telefone}" MensagemDeErro="{Binding ValidacaoTelefone, Mode=TwoWay}"/>
+                    <Button
+                    Text="Cadastre-se"
+                    Style="{StaticResource RaisedPrimary}"
+                    Command="{Binding CadastreseCommand}"/>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout Spacing="30" IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+
+             
+                
+                
+                <Button
+                    Text="Voltar"
+                    Command="{Binding VoltarParaOLoginCommand}"
+                    Style="{StaticResource FlatPrimary}"/>
+                
+                
+              
+            </StackLayout>          
+
+            <controls:MostrarLoadingControl IsVisible="{Binding MostrarLoading}"
+                                              BackgroundColor="Transparent" Margin="{StaticResource AppMargin}"/>
+        </FlexLayout>
+    </ContentPage.Content>
+</ContentPage>

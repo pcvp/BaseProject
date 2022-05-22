@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:BaseApp.Controls" xmlns:Converters="clr-namespace:BaseApp.Converters" xmlns:vm="clr-namespace:BaseApp.ViewModels.Login"
+             NavigationPage.HasNavigationBar="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}"
+             x:Class="BaseApp.Views.Login.LoginPage">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="{StaticResource AppMargin}"
+                         IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+                <StackLayout 
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="30">
+                    <controls:InputControl 
+                        NomeDoCampo="Email:" 
+                        Valor="{Binding Login}"
+                        MensagemDeErro="{Binding ValidacaoLogin, Mode=TwoWay}"/>
+                
+                    <controls:InputControl 
+                        NomeDoCampo="Senha:"
+                        EhSenha="True" 
+                        Valor="{Binding Senha}" 
+                        MensagemDeErro="{Binding ValidacaoSenha, Mode=TwoWay}" />
+                </StackLayout>            
+                <Button
+                        Text="Esqueci minha senha"
+                        Command="{Binding RecuperarSenhaCommand}"
+                        HorizontalOptions="Start"
+                        Margin="0"
+                        Padding="0"
+                        Style="{StaticResource FlatPrimary}"/>
+                <StackLayout 
+                    Margin="0,50,0,0"
+                    IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+                    <Button
+                        Text="Entrar"
+                        Style="{StaticResource RaisedPrimary}"
+                        Command="{Binding FazerLoginCommand}"/>               
+                </StackLayout>
+                <StackLayout 
+                    Orientation="Horizontal"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="0"
+                    IsVisible="{Binding MostrarLoading, Converter={Converters:InvertBooleanConverter}}">
+                    <Label Text="Primeira vez aqui? " 
+                           Style="{StaticResource Text12}" 
+                           HeightRequest="56"
+                           VerticalTextAlignment="Center"
+                           Margin="0"
+                           Padding="0"/>
+                    <Button
+                        Text="Cadastre-se"
+                        Command="{Binding CadastreseCommand}"
+                        Margin="0"
+                        Padding="0"
+                        Style="{StaticResource FlatPrimary}"/>
+                </StackLayout>            
+            
+            
+            </StackLayout>
+            <controls:MostrarLoadingControl IsVisible="{Binding MostrarLoading}"/>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

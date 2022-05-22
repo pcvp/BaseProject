@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BaseApp.Views.Configuracoes.ConfiguracoesPage"
+             Title="Configurações">
+
+    <ContentPage.Content>
+
+        <FlexLayout HorizontalOptions="Center" VerticalOptions="Start" Margin="{StaticResource AppMargin}" JustifyContent="SpaceBetween" Direction="Column">
+            <StackLayout>
+
+                <Label Text="Configuracoes" Style="{StaticResource Text14Bold}" Padding="10, 20" />
+
+
+            </StackLayout>
+        </FlexLayout>
+    </ContentPage.Content>
+</ContentPage>
