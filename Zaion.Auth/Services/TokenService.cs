@@ -7,14 +7,14 @@ using System.Text;
 using Zaion.Auth.Models;
 
 namespace Zaion.Auth.Services {
-    public class TokenService
-    {
-        public Token CreateToken(IdentityUser<int> usuario)
-        {
+    public class TokenService {
+        public Token CreateToken(IdentityUser<int> usuario, string userRole) {
             Claim[] direitosUsuario = new Claim[]
             {
                 new Claim("username", usuario.UserName),
-                new Claim("id", usuario.Id.ToString())
+                new Claim("id", usuario.Id.ToString()),
+                new Claim("email", usuario.Email),
+                new Claim(ClaimTypes.Role, userRole),
             };
 
             var chave = new SymmetricSecurityKey(

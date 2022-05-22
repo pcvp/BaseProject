@@ -20,9 +20,16 @@ namespace Zaion.Auth.Controllers {
             return Ok(resultado.Successes);
         }
 
-        [HttpPost("/resetarSenhaUsuario")]
+        [HttpPost("/ResetarSenhaUsuario")]
         public IActionResult ResetaSenhaUsuario(ResetarSenhaUsuarioRequest request) {
             Result resultado = _loginService.ResetarSenhaUsuario(request);
+            if (resultado.IsFailed) return Unauthorized(resultado.Errors);
+            return Ok(resultado.Successes);
+        }
+
+        [HttpPost("/SolicitarAlteracaoDeSenha")]
+        public IActionResult SolicitarAlteracaoDeSenha(SolicitaResetRequest request) {
+            Result resultado = _loginService.SolicitarAlteracaoDeSenha(request);
             if (resultado.IsFailed) return Unauthorized(resultado.Errors);
             return Ok(resultado.Successes);
         }
