@@ -7,6 +7,7 @@ using System.Web;
 using Zaion.Auth.Data.Dtos.Usuario;
 using Zaion.Auth.Data.Requests;
 using Zaion.Auth.Models;
+using Zaion.Auth.Roles;
 
 namespace Zaion.Auth.Services {
     public class CadastroService {
@@ -30,11 +31,8 @@ namespace Zaion.Auth.Services {
             IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
             Task<IdentityResult> resultadoIdentity = _userManager
                 .CreateAsync(usuarioIdentity, createDto.Password);
-
-            _ = _roleManager
-                .CreateAsync(new IdentityRole<int>("admin")).Result;
             _ = _userManager
-               .AddToRoleAsync(usuarioIdentity, "admin");
+               .AddToRoleAsync(usuarioIdentity, Role.UserLevel1);
             if (resultadoIdentity.Result.Succeeded) {
                 var code = _userManager
                     .GenerateEmailConfirmationTokenAsync(usuarioIdentity).Result;
