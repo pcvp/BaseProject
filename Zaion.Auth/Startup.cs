@@ -62,41 +62,7 @@ namespace Zaion.Auth {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-            });
-
-            CreateRoles(userManager, roleManager);
-        }
-
-        private void CreateRoles(UserManager<IdentityUser<int>> userManager, 
-            RoleManager<IdentityRole<int>> roleManager) {        
-            Task<IdentityResult> roleResult;
-
-            bool hasAdminRole = roleManager.RoleExistsAsync(Role.Admin).GetAwaiter().GetResult();
-
-            if (!hasAdminRole) {
-                roleResult = roleManager.CreateAsync(new IdentityRole<int>(Role.Admin));
-                roleResult.GetAwaiter().GetResult();
-            }
-
-            var emailAdmin = Configuration.GetValue<string>("UsuarioAdmin:Email");
-            var senhaAdmin = Configuration.GetValue<string>("UsuarioAdmin:Senha");
-            var adminUser = userManager.FindByEmailAsync(emailAdmin).GetAwaiter().GetResult();
-
-            if (adminUser == null) {
-                IdentityUser<int> administrator = new();
-                administrator.Email = emailAdmin;
-                administrator.UserName = emailAdmin;
-                administrator.EmailConfirmed = true;
-
-                IdentityResult newUser = userManager.CreateAsync(administrator, senhaAdmin)
-                    .GetAwaiter().GetResult();
-
-                if (newUser.Succeeded) {
-                    _ = userManager.AddToRoleAsync(administrator, Role.Admin)
-                        .GetAwaiter().GetResult();
-                }
-            }
-
-        }
+            });           
+        }        
     }
 }
